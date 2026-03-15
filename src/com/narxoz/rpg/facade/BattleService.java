@@ -15,21 +15,62 @@ public class BattleService {
     }
 
     public AdventureResult battle(HeroProfile hero, BossEnemy boss, AttackAction action) {
-        // TODO: Implement the battle flow.
-        // Questions to answer:
-        // - Who attacks first?
-        // - How many rounds are allowed?
-        // - How is damage resolved?
-        // - How will randomness affect the result, if at all?
         AdventureResult result = new AdventureResult();
-        result.setWinner("TODO");
-        result.setRounds(0);
-        result.setReward("TODO");
-        result.addLine("TODO: implement battle logic");
+        int rounds = 0;
 
-        // Keep the field in use so students can decide whether to rely on it.
-        if (random.nextInt(1) == 0) {
-            // TODO: Replace placeholder branch with real deterministic or random logic.
+        result.addLine("Battle starts: " + hero.getName() + " (" + hero.getHealth() + " HP) vs "
+                + boss.getName() + " (" + boss.getHealth() + " HP)");
+
+        while (hero.isAlive() && boss.isAlive()) {
+            rounds++;
+
+            // Hero attacks
+            int heroDmg = action.getDamage();
+            boss.takeDamage(heroDmg);
+
+            String heroMsg = hero.getName() + " attacks with " + action.getActionName()
+                    + " → " + heroDmg + " damage";
+            if (!boss.isAlive()) {
+                heroMsg += " (fatal strike!)";
+            }
+            result.addLine(heroMsg);
+
+            if (!boss.isAlive()) {
+                break;
+            }
+
+            // Boss attacks back
+            int bossDmg = boss.getAttackPower();
+
+            // Небольшой шанс крита у босса (для демонстрации рандома)
+            boolean isCrit = random.nextDouble() < 0.20; // 20% шанс
+            if (isCrit) {
+                bossDmg = (int)(bossDmg * 1.5);
+                result.addLine(boss.getName() + " lands a CRITICAL HIT!");
+            }
+
+            hero.takeDamage(bossDmg);
+
+            String bossMsg = boss.getName() + " strikes back → " + bossDmg + " damage";
+            if (!hero.isAlive()) {
+                bossMsg += " (fatal strike!)";
+            }
+            result.addLine(bossMsg);
+
+            // Промежуточный статус после раунда
+            result.addLine("Round " + rounds + " ends → Hero: " + hero.getHealth()
+                    + " HP | Boss: " + boss.getHealth() + " HP");
+            result.addLine("---");
+        }
+
+        result.setRounds(rounds);
+
+        if (hero.isAlive()) {
+            result.setWinner(hero.getName());
+            result.addLine("VICTORY! " + hero.getName() + " defeated " + boss.getName() + "!");
+        } else {
+            result.setWinner(boss.getName());
+            result.addLine("DEFEAT... " + boss.getName() + " has slain " + hero.getName() + ".");
         }
 
         return result;

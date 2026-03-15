@@ -54,7 +54,19 @@ homework-rpg-5/
 ├── STUDENT_CHECKLIST.md
 └── README.md
 ```
+## UML-диаграммы
 
+### Decorator
+
+![Decorator](Diagrams/Decoratorpng.png)
+
+### Facade 
+![Facade ](Diagrams/Facade.png)
+
+## Вывод программы
+
+## Ссылка на код
+https://github.com/Yersultan-Man/homework-rpg-5.git
 ## Deliverables
 - Completed Java code
 - UML diagrams (2)

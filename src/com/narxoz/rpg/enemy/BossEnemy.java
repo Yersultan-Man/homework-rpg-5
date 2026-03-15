@@ -25,7 +25,8 @@ public class BossEnemy {
 
     public void takeDamage(int amount) {
         if (amount > 0) {
-            health = Math.max(0, health - amount);
+            health -= amount;
+            if (health < 0) health = 0;
         }
     }
 

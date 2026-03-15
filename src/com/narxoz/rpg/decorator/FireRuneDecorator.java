@@ -8,16 +8,17 @@ public class FireRuneDecorator extends ActionDecorator {
 
     @Override
     public String getActionName() {
-        return "Fiery " + wrappedAction.getActionName();
+        return "Fiery " + getWrappedAction().getActionName();
     }
 
     @Override
     public int getDamage() {
-        return wrappedAction.getDamage() + 6;
+        return getWrappedAction().getDamage() + 6;
     }
 
     @Override
     public String getEffectSummary() {
-        return wrappedAction.getEffectSummary() + ", ignites target (extra fire damage)";
+        String base = getWrappedAction().getEffectSummary();
+        return base.isEmpty() ? "burning (fire damage)" : base + ", burning (fire damage)";
     }
 }

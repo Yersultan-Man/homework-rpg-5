@@ -8,16 +8,17 @@ public class CriticalFocusDecorator extends ActionDecorator {
 
     @Override
     public String getActionName() {
-        return "Critical " + wrappedAction.getActionName();
+        return "Critical " + getWrappedAction().getActionName();
     }
 
     @Override
     public int getDamage() {
-        return wrappedAction.getDamage() + 8;
+        return getWrappedAction().getDamage() + 8;
     }
 
     @Override
     public String getEffectSummary() {
-        return wrappedAction.getEffectSummary() + ", increased critical potential";
+        String base = getWrappedAction().getEffectSummary();
+        return base.isEmpty() ? "critical strike chance" : base + ", critical strike chance";
     }
 }

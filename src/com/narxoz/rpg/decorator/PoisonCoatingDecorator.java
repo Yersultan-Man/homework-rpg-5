@@ -8,16 +8,17 @@ public class PoisonCoatingDecorator extends ActionDecorator {
 
     @Override
     public String getActionName() {
-        return "Venomous " + wrappedAction.getActionName();
+        return "Venomous " + getWrappedAction().getActionName();
     }
 
     @Override
     public int getDamage() {
-        return wrappedAction.getDamage() + 4;
+        return getWrappedAction().getDamage() + 4;
     }
 
     @Override
     public String getEffectSummary() {
-        return wrappedAction.getEffectSummary() + ", poisons target (ongoing damage)";
+        String base = getWrappedAction().getEffectSummary();
+        return base.isEmpty() ? "poisoned (DoT)" : base + ", poisoned (DoT)";
     }
 }

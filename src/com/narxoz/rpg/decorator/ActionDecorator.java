@@ -7,25 +7,23 @@ public abstract class ActionDecorator implements AttackAction {
         this.wrappedAction = wrappedAction;
     }
 
+    // Защищённый геттер — чтобы дочерние классы могли обращаться к обёрнутому объекту
     protected AttackAction getWrappedAction() {
         return wrappedAction;
     }
 
     @Override
     public String getActionName() {
-        // TODO: Delegate to wrapped action, then extend if needed.
         return wrappedAction.getActionName();
     }
 
     @Override
     public int getDamage() {
-        // TODO: Delegate to wrapped action, then extend if needed.
         return wrappedAction.getDamage();
     }
 
     @Override
     public String getEffectSummary() {
-        // TODO: Delegate to wrapped action, then extend if needed.
         return wrappedAction.getEffectSummary();
     }
 }

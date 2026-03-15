@@ -21,6 +21,6 @@ public class BasicAttack implements AttackAction {
 
     @Override
     public String getEffectSummary() {
-        return "basic physical attack";
+        return "physical attack";
     }
 }
